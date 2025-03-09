@@ -17,14 +17,11 @@ const commonFeatureRouter = require("./routes/common/feature-routes");
 
 //create a database connection -> u can also
 //create a separate file for this and then import/use that file here
-
-mongoose
-  .connect("db_url")
-  .then(() => console.log("MongoDB connected"))
-  .catch((error) => console.log(error));
+const db_url = require("./db");
+db_url();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT =  5000;
 
 app.use(
   cors({

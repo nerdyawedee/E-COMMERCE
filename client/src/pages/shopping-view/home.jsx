@@ -47,6 +47,9 @@ const brandsWithIcon = [
   { id: "zara", label: "Zara", icon: Images },
   { id: "h&m", label: "H&M", icon: Heater },
 ];
+
+const banners = [bannerOne, bannerTwo, bannerThree];
+
 function ShoppingHome() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const { productList, productDetails } = useSelector(
@@ -99,11 +102,11 @@ function ShoppingHome() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % featureImageList.length);
-    }, 15000);
-
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % banners.length);
+    }, 5000);
     return () => clearInterval(timer);
-  }, [featureImageList]);
+  }, []);
+
 
   useEffect(() => {
     dispatch(
@@ -123,17 +126,16 @@ function ShoppingHome() {
   return (
     <div className="flex flex-col min-h-screen">
       <div className="relative w-full h-[600px] overflow-hidden">
-        {featureImageList && featureImageList.length > 0
-          ? featureImageList.map((slide, index) => (
-              <img
-                src={slide?.image}
-                key={index}
-                className={`${
-                  index === currentSlide ? "opacity-100" : "opacity-0"
-                } absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000`}
-              />
-            ))
-          : null}
+      {banners.map((slide, index) => (
+          <img
+            src={slide}
+            key={index}
+            className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000 ${
+              index === currentSlide ? "opacity-100" : "opacity-0"
+            }`}
+            alt={`Banner ${index + 1}`}
+          />
+        ))}
         <Button
           variant="outline"
           size="icon"
